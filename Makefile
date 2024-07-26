@@ -1,8 +1,6 @@
-build:
+build-dev:
 	go build -o gostar main.go star.go
-build-prod:
+build:
 	go build -o /usr/local/bin/star main.go star.go
-view:
-	@cat ~/.star
 clean:
 	rm -f ~/.star
