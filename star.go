@@ -64,7 +64,6 @@ func searchStar(file *os.File, options SearchOptions) {
 	}
 	stdin.Close()
 	if err := cmd.Wait(); err != nil {
-		fmt.Println("Error waiting for fzf command to complete:", err)
 		return
 	}
 	result := out.String()
@@ -129,9 +128,10 @@ func toggleStar(file *os.File, path string) {
 func openInEditor(path, editor string) {
 	trimmedPath := strings.TrimSpace(path)
 	cmd := exec.Command(editor, trimmedPath)
-  cmd.Stdin = os.Stdin
-  cmd.Stdout = os.Stdout
-  cmd.Stderr = os.Stderr
+	cmd.Stdin = os.Stdin
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	cmd.Dir = trimmedPath
 	err := cmd.Run()
 	if err != nil {
 		fmt.Println("Couldn't start specified editor, make sure it is installed")
